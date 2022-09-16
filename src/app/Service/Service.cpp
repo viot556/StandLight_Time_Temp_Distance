@@ -4,6 +4,7 @@ Service::Service(View *viewer)
 {
     view = viewer;
     lightState = LIGHT_OFF;
+    bDistanceLight =false;
 }
 
 Service::~Service()
@@ -30,6 +31,14 @@ void Service::updateState(std::string strState)
                 lightState = LIGHT_OFF;
             }
             view->setState(lightState);
+            if(bDistanceLight)
+            {
+                view->setState(lightState);
+            }
+            else
+            {
+                view->setState(LIGHT_OFF);
+            }            
         break;
         case LIGHT_2:
             if (strState == "modeButton") {
@@ -39,6 +48,14 @@ void Service::updateState(std::string strState)
                 lightState = LIGHT_OFF;
             }
             view->setState(lightState);
+             if(bDistanceLight)
+            {
+                view->setState(lightState);
+            }
+            else
+            {
+                view->setState(LIGHT_OFF);
+            }          
         break;
         case LIGHT_3:
             if (strState == "modeButton") {
@@ -48,6 +65,14 @@ void Service::updateState(std::string strState)
                 lightState = LIGHT_OFF;
             }
             view->setState(lightState);
+            if(bDistanceLight)
+            {
+                view->setState(lightState);
+            }
+            else
+            {
+                view->setState(LIGHT_OFF);
+            }
         break;
         case LIGHT_4:
             if (strState == "modeButton") {
@@ -57,6 +82,14 @@ void Service::updateState(std::string strState)
                 lightState = LIGHT_OFF;
             }
             view->setState(lightState);
+            if(bDistanceLight)
+            {
+                view->setState(lightState);
+            }
+            else
+            {
+                view->setState(LIGHT_OFF);
+            }            
         break;
         case LIGHT_5:
             if (strState == "modeButton") {
@@ -66,6 +99,32 @@ void Service::updateState(std::string strState)
                 lightState = LIGHT_OFF;
             }
             view->setState(lightState);
+            if(bDistanceLight)
+            {
+                view->setState(lightState);
+            }
+            else
+            {
+                view->setState(LIGHT_OFF);
+            }           
         break;
     }
+}
+
+void Service::updateDistance(int distance)
+{
+    if(distance < 0)
+    {
+        //Light off
+        bDistanceLight = false;
+        view->setState(LIGHT_OFF);
+    }
+    else
+    {
+        //Light on
+        bDistanceLight = true;
+        view->setState(lightState);
+    }
+
+    printf("distance : %d, %d\n", distance,bDistanceLight);
 }

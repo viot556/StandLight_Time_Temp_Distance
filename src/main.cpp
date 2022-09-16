@@ -14,6 +14,7 @@
 #include "DHT11.h"
 #include "TempHumidService.h"
 #include "TempHumidView.h"
+#include "UltraSonic.h"
 
 int main()
 {
@@ -28,6 +29,7 @@ int main()
     Led led4(24);
     Led led5(25);
     DHT11 dht(7);
+    UltraSonic ultraSonic(5,4);
     LCD lcd(new I2C("/dev/i2c-1", 0x27));
     View view(&led1, &led2, &led3, &led4, &led5, &lcd);
     TempHumidView tempHumidView(&lcd);
@@ -36,7 +38,7 @@ int main()
     ClockService clockSerivce(&clockView);
     TempHumidService tempHumidService(&tempHumidView);
     Controller control(&service, &clockSerivce, &tempHumidService);
-    Listener listener(&modeButton, &powerButton, &control, &clockCheck, &dht);
+    Listener listener(&modeButton, &powerButton, &control, &clockCheck, &dht, &ultraSonic);
     
     while (1)
     {
